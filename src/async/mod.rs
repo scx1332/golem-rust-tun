@@ -18,9 +18,14 @@ use crate::error;
 
 use crate::configuration::Configuration;
 use crate::platform::create;
-
+#[cfg(unix)]
 mod device;
+#[cfg(unix)]
 pub use self::device::{AsyncDevice, AsyncQueue};
+#[cfg(windows)]
+mod device_win;
+#[cfg(windows)]
+pub use self::device_win::{AsyncDevice, AsyncQueue};
 
 mod codec;
 pub use self::codec::{TunPacket, TunPacketCodec};

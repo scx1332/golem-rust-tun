@@ -78,8 +78,7 @@ impl Device {
     }
 
     /// Split the interface into a `Reader` and `Writer`.
-    pub fn split(self) -> () {
-    }
+    pub fn split(self) -> () {}
 
     /// Return whether the device has packet information
     pub fn has_packet_information(&self) -> bool {
@@ -208,8 +207,6 @@ impl Queue {
     }
 }
 
-
-
 impl AsRawFd for Queue {
     fn as_raw_fd(&self) -> RawFd {
         self.tun.as_raw_fd()
@@ -241,7 +238,6 @@ impl Write for Queue {
     }
 
     fn flush(&mut self) -> io::Result<()> {
-
         Ok(())
     }
 
