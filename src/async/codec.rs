@@ -85,6 +85,11 @@ impl TunPacket {
         TunPacket(proto, Bytes::from(bytes))
     }
 
+    pub fn from_bytes(bytes: Bytes) -> TunPacket {
+        let proto = infer_proto(&bytes);
+        TunPacket(proto, bytes)
+    }
+
     /// Return this packet's bytes.
     pub fn get_bytes(&self) -> &[u8] {
         &self.1
