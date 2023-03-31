@@ -80,11 +80,6 @@ fn infer_proto(buf: &[u8]) -> PacketProtocol {
 
 impl TunPacket {
     /// Create a new `TunPacket` based on a byte slice.
-    pub fn new(bytes: Vec<u8>) -> TunPacket {
-        let proto = infer_proto(&bytes);
-        TunPacket(proto, Bytes::from(bytes))
-    }
-
     pub fn from_bytes(bytes: Bytes) -> TunPacket {
         let proto = infer_proto(&bytes);
         TunPacket(proto, bytes)
