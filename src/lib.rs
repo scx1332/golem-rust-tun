@@ -33,7 +33,8 @@ pub use crate::platform::create;
         target_os = "linux",
         target_os = "macos",
         target_os = "ios",
-        target_os = "android"
+        target_os = "android",
+        target_os = "windows"
     )
 ))]
 pub mod r#async;
@@ -43,7 +44,8 @@ pub mod r#async;
         target_os = "linux",
         target_os = "macos",
         target_os = "ios",
-        target_os = "android"
+        target_os = "android",
+        target_os = "windows"
     )
 ))]
 pub use r#async::*;

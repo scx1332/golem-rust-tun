@@ -12,26 +12,19 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
-//! Async specific modules.
+//! Dummy implementation for Windows.
 
-use crate::error;
+pub mod device;
+pub use self::device::{Device, Queue};
 
-use crate::configuration::Configuration;
-use crate::platform::create;
-#[cfg(unix)]
-mod device;
-#[cfg(unix)]
-pub use self::device::{AsyncDevice, AsyncQueue};
-#[cfg(windows)]
-mod device_win;
-#[cfg(windows)]
-pub use self::device_win::{AsyncDevice, AsyncQueue};
+use crate::configuration::Configuration as C;
+use crate::error::*;
 
-mod codec;
-pub use self::codec::{TunPacket, TunPacketCodec};
+/// Windows-only interface configuration.
+#[derive(Copy, Clone, Default, Debug)]
+pub struct Configuration {}
 
 /// Create a TUN device with the given name.
-pub fn create_as_async(configuration: &Configuration) -> Result<AsyncDevice, error::Error> {
-    let device = create(&configuration)?;
-    AsyncDevice::new(device).map_err(|err| err.into())
+pub fn create(configuration: &C) -> Result<Device> {
+    Device::new(configuration)
 }

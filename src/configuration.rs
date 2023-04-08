@@ -12,7 +12,10 @@
 //
 //  0. You just DO WHAT THE FUCK YOU WANT TO.
 
+#[cfg(target_os = "windows")]
+use crate::platform::windows::device::RawFd;
 use std::net::Ipv4Addr;
+#[cfg(unix)]
 use std::os::unix::io::RawFd;
 
 use crate::address::IntoAddress;

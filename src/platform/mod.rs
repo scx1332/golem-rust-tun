@@ -14,6 +14,11 @@
 
 //! Platform specific modules.
 
+#[cfg(target_os = "windows")]
+pub mod windows;
+#[cfg(target_os = "windows")]
+pub use self::windows::{create, Configuration, Device, Queue};
+
 #[cfg(unix)]
 pub mod posix;
 

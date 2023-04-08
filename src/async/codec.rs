@@ -51,6 +51,18 @@ impl PacketProtocol {
             )),
         }
     }
+
+    #[cfg(target_os = "windows")]
+    fn into_pi_field(&self) -> Result<u16, io::Error> {
+        match self {
+            PacketProtocol::IPv4 => Ok(0x0800 as u16),
+            PacketProtocol::IPv6 => Ok(34525 as u16),
+            PacketProtocol::Other(_) => Err(io::Error::new(
+                io::ErrorKind::Other,
+                "neither an IPv4 or IPv6 packet",
+            )),
+        }
+    }
 }
 
 /// A Tun Packet to be sent or received on the TUN interface.
@@ -68,9 +80,9 @@ fn infer_proto(buf: &[u8]) -> PacketProtocol {
 
 impl TunPacket {
     /// Create a new `TunPacket` based on a byte slice.
-    pub fn new(bytes: Vec<u8>) -> TunPacket {
+    pub fn from_bytes(bytes: Bytes) -> TunPacket {
         let proto = infer_proto(&bytes);
-        TunPacket(proto, Bytes::from(bytes))
+        TunPacket(proto, bytes)
     }
 
     /// Return this packet's bytes.
